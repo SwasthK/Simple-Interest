@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPLE INTEREST</title>
+    <style>
+        #container {
+            background-color: rgb(169, 177, 204);
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #container input {
+            padding: 20px;
+            border-radius: 20px;
+            width: 200px;
+        }
+
+        #container button {
+            padding: 20px;
+            border-radius: 20px;
+            width: 200px;
+            background-color: aqua;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <input type="text" id="Principal" placeholder="Principal">
+        <br><br>
+        <input type="text" id="Time" placeholder="time">
+        <br><br>
+        <input type="text" id="Rate" placeholder="rate">
+        <br><br>
+        <button onclick="caluclate()" id="btn">CALUCLATE</button>
+        <p id="SI"></p>
+    </div>
+</body>
+<script>
+    async function caluclate() {
+        const val1 = document.getElementById("Principal").value
+        const val3 = document.getElementById("Time").value
+        const val2 = document.getElementById("Rate").value
+        if (val1 == "" || val2=="" || val3=="") {
+            const para = document.createElement('p')
+            para.innerHTML ="Please enter the values !"
+            document.getElementById("container").appendChild(para)
+            return;
+        }
+        const response = await fetch("http://localhost:3000/?p=" + val1 + "&t=" + val2 + "&r=" + val3)
+        const ans = await response.json()
+        const para = document.createElement('p')
+        para.innerHTML = "TOTAL = " + ans.total + " and INTEREST = " + ans.interest
+        document.getElementById("container").appendChild(para)
+    }
+</script>
+
+</html>
